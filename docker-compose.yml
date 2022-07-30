@@ -1,0 +1,33 @@
+version: "3.9"
+   
+services:
+  db:
+    image: postgres:14
+    volumes:
+      - db-data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  web:
+    <<: &web
+      build: .
+      environment:
+        - DATABASE_URL=postgresql://postgres:postgres@db/postgres
+        - SAMPLE_SPREADSHEET_ID=1lAUTf3BjCIZdCcPlqgliWiCZB3S0PD7LQ6rw5tIHtvA
+        - SAMPLE_RANGE_NAME=test1!A2:D
+      depends_on:
+        - db
+      volumes:
+        - .:/code/
+      ports:
+        - "8000:8000"
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+volumes:
+  db-data:
