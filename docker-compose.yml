@@ -14,7 +14,7 @@ services:
       build: .
       environment:
         - DATABASE_URL=postgresql://postgres:postgres@db/postgres
-        - SAMPLE_SPREADSHEET_ID=1lAUTf3BjCIZdCcPlqgliWiCZB3S0PD7LQ6rw5tIHtvA
+        - SAMPLE_SPREADSHEET_ID=1Q5Co2IsAg4DY4ABcbc7L-JIyymT9eTD-kvH3Jo3RHZ0
         - SAMPLE_RANGE_NAME=test1!A2:D
       depends_on:
         - db
